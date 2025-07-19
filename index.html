@@ -1,66 +1,712 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>500人传记总览</title>
-  <style>
-    body { font-family: sans-serif; background: #fff; color: #333; margin: 0; padding: 2rem; }
-    .biography-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-    .bio-card { padding: 1rem; border: 1px solid #eee; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; }
-    .bio-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .bio-card h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
-    .bio-card p { font-size: 0.9rem; color: #666; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1X100成长故事 | 交互式故事体验</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <h1>500人传记</h1>
-  <div class="biography-list">
+    <div class="particle-background" id="particleBackground"></div>
+    
+    <div class="page-transition"></div>
+    
+    <div class="loader">
+        <div class="loader-content">
+            <h1>1X100成长故事</h1>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <p class="loading-text">正在加载成长故事...</p>
+        </div>
+    </div>
 
-    <a href="biographies/原鸣.html" class="bio-card">
-      <h3>原鸣</h3>
-      <p>点击查看 原鸣 的传记</p>
-    </a>
-    <a href="biographies/小刀.html" class="bio-card">
-      <h3>小刀</h3>
-      <p>点击查看 小刀 的传记</p>
-    </a>
-    <a href="biographies/小柒.html" class="bio-card">
-      <h3>小柒</h3>
-      <p>点击查看 小柒 的传记</p>
-    </a>
-    <a href="biographies/杨嘉妤.html" class="bio-card">
-      <h3>杨嘉妤</h3>
-      <p>点击查看 杨嘉妤 的传记</p>
-    </a>
-    <a href="biographies/段骁.html" class="bio-card">
-      <h3>段骁</h3>
-      <p>点击查看 段骁 的传记</p>
-    </a>
-    <a href="biographies/火凤凰.html" class="bio-card">
-      <h3>火凤凰</h3>
-      <p>点击查看 火凤凰 的传记</p>
-    </a>
-    <a href="biographies/牧吹.html" class="bio-card">
-      <h3>牧吹</h3>
-      <p>点击查看 牧吹 的传记</p>
-    </a>
-    <a href="biographies/狐七的.html" class="bio-card">
-      <h3>狐七的</h3>
-      <p>点击查看 狐七的 的传记</p>
-    </a>
-    <a href="biographies/狼.html" class="bio-card">
-      <h3>狼</h3>
-      <p>点击查看 狼 的传记</p>
-    </a>
-    <a href="biographies/芊芊.html" class="bio-card">
-      <h3>芊芊</h3>
-      <p>点击查看 芊芊 的传记</p>
-    </a>
-    <a href="biographies/飞飞.html" class="bio-card">
-      <h3>飞飞</h3>
-      <p>点击查看 飞飞 的传记</p>
-    </a>
+    <div class="intro-screen">
+        <div class="intro-content">
+            <h1>1X100成长故事</h1>
+            <p>每个人都有属于自己的成长故事，这里记录着那些在1X100中蜕变的生命...</p>
+            <button class="start-btn">开始体验 <i class="fas fa-arrow-right"></i></button>
+        </div>
+        <div class="scroll-indicator"></div>
+    </div>
+
+    <main class="main-content">
+        <div class="navigation">
+            <div class="nav-item active" data-section="intro">序</div>
+            <div class="nav-item" data-section="chapter1">星辰大海</div>
+            <div class="nav-item" data-section="chapter2">焱熙</div>
+            <div class="nav-item" data-section="chapter3">阿威</div>
+            <div class="nav-item" data-section="characters">人物</div>
+            <div class="nav-item" data-section="worlds">项目</div>
+            <div class="nav-item" data-section="biographies">500人传记</div>
+        </div>
+
+        <div class="content-container">
+            <section id="intro" class="content-section active">
+                <div class="section-content">
+                    <h2>序 1X100简介</h2>
+                    <div class="god-list">
+                        <p>1X100是一个致力于年轻人成长的社区，通过多样化的项目和活动，帮助参与者突破自我限制，发现更多可能性。</p>
+                        <div class="gods-container">
+                            <div class="god-item" data-god="开眼计划">打破自我设限，站上舞台表达</div>
+                            <div class="god-item" data-god="交换人生">体验他人视角，碰撞不同生活态度</div>
+                            <div class="god-item" data-god="灯塔计划">建立真实连接，感受被看见的价值</div>
+                            <div class="god-item" data-god="同龄人大会">分享成长故事，互相启发与支持</div>
+                            <div class="god-item" data-god="人生经历复盘">梳理成长片段，找回被遗忘的自己</div>
+                            <div class="god-item" data-god="自媒体实践">持续输出表达，构建认知路径</div>
+                            <div class="god-item" data-god="线下连接">体验真实社交，建立深度关系</div>
+                            <div class="god-item" data-god="商业思维启蒙">实践项目运营，培养商业逻辑</div>
+                            <div class="god-item" data-god="认知重构">打破固有思维，拓展视野边界</div>
+                            <div class="god-item" data-god="自我决断">面对困境挑战，找到前进方向</div>
+                            <div class="god-item" data-god="经济独立">探索价值创造，实现自我成长</div>
+                            <div class="god-item" data-god="未来规划">设定长远目标，规划人生道路</div>
+                        </div>
+                        <p class="god-question">在这个充满可能性的社区中，你想要探索哪些成长机会？</p>
+                        <p class="god-answer">——每个人都有属于自己的成长故事</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter1" class="content-section">
+                <div class="section-content">
+                    <h2>1X100 成长故事</h2>
+                    <h3>星辰大海的故事</h3>
+                    <div class="story-content">
+                        <p class="chapter-intro">——从害怕表达到社交达人的蜕变——</p>
+                        <div class="story-paragraph">
+                            <p>2023年夏，我被一篇名为《你值得登上更大的舞台》的文章所吸引，开始思考"开眼"的意义，踏出自我设限的第一步。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>参加29期开眼计划时，虽然仍有遗憾未能开麦，但这次体验打破了我"社恐"的外壳，为后续突破积累了勇气。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>在30期开眼计划中，我担任教练助理并鼓起勇气开麦表达，回应了"我也可以发光"的内在渴望。从此，我连续参与多期开眼计划，担任教练、助理、主持人等角色，主动承担更多责任与任务。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>参与1x100线下活动及灯塔计划培训时，我感受到人与人之间真实、能量充沛的连接。在灯塔计划中，我写下十几封手工明信片，深刻体验了"被看见"的价值。</p>
+                        </div>
+                        <div class="message-box">
+                            <p>"想要做到，先要看到。如果不出去走走，你会以为眼前就是整个世界。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>我主动完成了107条人生经历复盘，自发梳理成长片段，找回被遗忘的自己。同时，我坚持日更朋友圈数百天，公众号日更近两百天，总输出文字十余万字，构建了表达出口与自我认知路径。</p>
+                        </div>
+                        <div class="message-reply">
+                            <p>"从0到1是最难的，但一旦突破，接下来都会顺理成章。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>从"害怕表达的小透明"成长为"社交达人"，通过持续表达、站台、连接不断重塑自己，我学会了设立边界与自我保护，认识到线上社交的虚假表象，转向真实线下连接，聚焦稳定而深度的社交体验。</p>
+                        </div>
+                    </div>
+                    <div class="continue-reading">
+                        <button class="continue-btn">继续阅读</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter2" class="content-section">
+                <div class="section-content">
+                    <h2>1X100 成长故事</h2>
+                    <h3>焱熙的故事</h3>
+                    <div class="story-content">
+                        <p class="chapter-intro">——从家庭困境到自我决断的成长之路——</p>
+                        <div class="story-paragraph">
+                            <p>我是焱熙，一个经历过家庭困境、辍学、北漂的年轻人。我的成长之路充满了挑战，但也因此塑造了今天的我。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>加入1X100是我人生的转折点。通过"交换人生"活动，我第一次体验到了不同的生活方式，这让我开始思考自己真正想要的是什么。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>在同龄人大会上，我被其他年轻人的故事深深触动，意识到即使面临困境，我也有选择的权利和改变的可能。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>家庭的困境曾迫使我辍学，但我没有放弃。我独自北漂，经历了流浪和自我决断的艰难时期，这段经历让我更加坚强。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>在职业探索中，我逐渐找到了自己的方向，设定了明确的技能目标，开始了认知重构的旅程。</p>
+                        </div>
+                        <div class="message-box">
+                            <p>"人生没有白走的路，每一步都算数。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>通过1X100的活动和项目，我学会了如何面对困境，如何在逆境中成长，如何为自己的人生负责。</p>
+                        </div>
+                        <div class="message-reply">
+                            <p>"我们无法选择出身，但可以选择成为什么样的人。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>如今的我，已经从一个迷茫的年轻人成长为有目标、有规划的成年人。我相信，未来的路还很长，但我已经准备好迎接每一个挑战。</p>
+                        </div>
+                    </div>
+                    <div class="continue-reading">
+                        <button class="continue-btn">继续阅读</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter3" class="content-section">
+                <div class="section-content">
+                    <h2>1X100 成长故事</h2>
+                    <h3>阿威的故事</h3>
+                    <div class="story-content">
+                        <p class="chapter-intro">——从焦虑到商业思维的启蒙之旅——</p>
+                        <div class="story-paragraph">
+                            <p>我是阿威，一个曾经被焦虑困扰，后来通过实践找到自我价值的年轻人。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>加入1X100和"开眼计划"后，我开始接触到不同的思维方式和生活可能性。通过网友面基活动，我的认知得到了转变，开始思考如何将想法付诸实践。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>一次错过高铁的经历让我深陷行程焦虑，但这也成为我反思时间管理和应对压力方式的契机。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>在校园里，我尝试运营零食外卖项目，从兼职送外卖到成为平台管理者，这段经历让我初步接触到商业运作的基本逻辑。</p>
+                        </div>
+                        <div class="message-box">
+                            <p>"想明白，说明白，活明白。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>城市旅行成为我考研的动力，而低成本拿下咖啡企业品牌授权的经历则是我商业启蒙的重要一步。</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>最让我自豪的是，我在乡镇策划并运营了补习班项目，不仅实现了经济独立，还找到了自己的价值所在。</p>
+                        </div>
+                        <div class="message-reply">
+                            <p>"人生就是一场体验，重要的是你如何看待这些体验。"</p>
+                        </div>
+                        <div class="story-paragraph">
+                            <p>通过1X100的项目和活动，我从一个焦虑的年轻人成长为具有商业思维和教育情怀的实践者，开始规划更长远的人生目标。</p>
+                        </div>
+                    </div>
+                    <div class="continue-reading">
+                        <button class="continue-btn">继续阅读</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="characters" class="content-section">
+                <div class="section-content">
+                    <h2>角色介绍</h2>
+                    <div class="characters-grid">
+                        <div class="character-card" data-character="星辰大海">
+                            <div class="character-image" style="background-color: #3498db;"></div>
+                            <h3>星辰大海</h3>
+                            <p>准大二学生，软件技术专业。喜欢阅读与写作，热爱旅行与探索，追求理性独立，勇于表达真实的自我。</p>
+                        </div>
+                        <div class="character-card" data-character="焱熙">
+                            <div class="character-image" style="background-color: #2ecc71;"></div>
+                            <h3>焱熙</h3>
+                            <p>安静内向，内心丰盈。年少因家庭经济困顿而辍学，独自闯荡社会。从"无声"的沉默者走向"真实的表达者"。</p>
+                        </div>
+                        <div class="character-card" data-character="阿威">
+                            <div class="character-image" style="background-color: #34495e;"></div>
+                            <h3>阿威</h3>
+                            <p>实践驱动型的大学生，校园外卖项目总负责人，具备较强组织管理与商业思维。敢于试错，热衷于用真实经验建立认知结构。</p>
+                        </div>
+                        <div class="character-card" data-character="Pocket">
+                            <div class="character-image" style="background-color: #9b59b6;"></div>
+                            <h3>Pocket</h3>
+                            <p>一个普通但有些固执、有些理想的人。追求有温度的理性，追求现实中的浪漫。热衷于"交互"与"回应"，将人与人之间的连接视为一种值得投入的结构。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="worlds" class="content-section">
+                <div class="section-content">
+                    <h2>1X100世界观</h2>
+                    <div class="world-container">
+                        <div class="world-item">
+                            <h3>开眼计划</h3>
+                            <p>一个让参与者打破自我设限、站上舞台表达自我的成长项目。通过每日话题、交换人生等活动，帮助参与者从"害怕表达的小透明"成长为"社交达人"，实现从"无声"到"表达者"的转变。</p>
+                        </div>
+                        <div class="world-item">
+                            <h3>交换人生</h3>
+                            <p>通过一对一深度对话，体验他人视角与生活态度的碰撞，理解新闻不只是信息，而是一种人的关系结构。在交流中获得表达勇气，逐步实现"表达自我"的转变，体验成长带来的释放。</p>
+                        </div>
+                        <div class="world-item">
+                            <h3>灯塔计划</h3>
+                            <p>参与者在线下活动中感受人与人之间真实、能量充沛的连接。通过写手工明信片等方式，深刻体验"被看见"的价值，建立更加真实的社交体验，聚焦稳定而深度的人际连接。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="biographies" class="content-section">
+
+<section id="biographies" class="content-section">
+  <div class="container">
+    <div class="section-title">
+      <h2>500人传记</h2>
+      <p>每一个名字背后，都是一段成长。</p>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>给自己写一本传记的第二天</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/给自己写一本传记的第二天.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>小喵</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/小喵.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>小刀故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/小刀故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>小柒故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/小柒故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>南风</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/南风.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>小喵的人生传记感受</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/小喵的人生传记感受.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>芊芊故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/芊芊故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>肘子的人生传记1/</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/肘子的人生传记1_.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>飞飞故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/飞飞故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>狼的传记</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/狼的传记.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>心室传记</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/心室传记.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>可乐人生传记</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/可乐人生传记.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>原鸣故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/原鸣故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>诗雨的故事档案-大三暑假回家记</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/诗雨的故事档案-大三暑假回家记.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>火凤凰故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/火凤凰故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>-二-的一二事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/-二-的一二事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>阿桃</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/阿桃.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>牧吹故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/牧吹故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>子一故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/子一故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>段骁故事1/</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/段骁故事1_.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>如靖的人生传记</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/如靖的人生传记.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>正秦故事会</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/正秦故事会.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>阿槐故事会</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/阿槐故事会.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>杨嘉妤故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/杨嘉妤故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>狐七的故事</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/狐七的故事.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>星辰大海故事会</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/星辰大海故事会.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>忘覃水三故事喜</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/忘覃水三故事喜.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>你最早能清晰回忆起来的童年场景是怎样的？当时发生了什么让你印象深刻的事？</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/你最早能清晰回忆起来的童年场景是怎样的？当时发生了什么让你印象深刻的事？.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-lg-4 col-md-6">
+        <div class="member">
+          <div class="pic"><img src="assets/img/avatar_placeholder.png" class="img-fluid" alt=""></div>
+          <div class="member-info">
+            <h4>关于幼儿园片段</h4>
+            <span>传记人物</span>
+            <p>点击查看完整传记</p>
+            <a href="biographies/关于幼儿园片段.html" class="btn btn-sm btn-outline-primary">查看传记</a>
+          </div>
+        </div>
+      </div>
+    
+    </div>
   </div>
+</section>
+
+</section>
+
+        </div>
+    </main>
+
+    <div class="modal" id="godModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+
+    <div class="story-continuation">
+        <div class="continuation-content">
+            <h3>1X100成长故事集</h3>
+            <div class="story-paragraph">
+                <p>每个人都有自己独特的成长故事，在1X100的世界里，这些故事被看见、被聆听、被记录。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>从害怕表达到社交达人，从家庭困境到自我决断，从焦虑到商业思维启蒙，每一个故事都展现了年轻人在面对挑战时的勇气和智慧。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>"成长不是一蹴而就的，而是由无数个小小的突破组成的。"</p>
+            </div>
+            <div class="story-paragraph">
+                <p>通过开眼计划、交换人生、灯塔计划等项目，1X100为年轻人提供了一个安全的空间，让他们可以尝试新的可能性，突破自我限制，发现更广阔的世界。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>在这些故事中，我们看到了年轻人如何通过自我表达找到内心的力量，如何在困境中坚持自己的选择，如何将焦虑转化为行动的动力。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>每一个故事都是独特的，但它们都传递着相同的信息：成长是一个不断突破、不断探索的过程。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>1X100相信，每个人都有潜力成为更好的自己，都有能力创造属于自己的精彩故事。</p>
+            </div>
+            <div class="story-paragraph">
+                <p>这些故事不仅仅是个人的成长记录，更是对其他年轻人的启发和鼓励，让他们知道：你并不孤单，你的努力和勇气都值得被看见。</p>
+            </div>
+            <div class="continue-reading">
+                <button class="back-btn">返回</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Create particles for background
+        function createParticles() {
+            const particleContainer = document.getElementById('particleBackground');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 5px and 20px
+                const size = Math.random() * 15 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                particleContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+        
+        // 3D tilt effect for cards
+        document.addEventListener('mousemove', function(e) {
+            const cards = document.querySelectorAll('.character-card, .world-item');
+            
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                }
+            });
+        });
+        
+        // Reset card rotation when mouse leaves
+        document.addEventListener('mouseleave', function() {
+            const cards = document.querySelectorAll('.character-card, .world-item');
+            
+            cards.forEach(card => {
+                card.style.transform = '';
+            });
+        });
+    </script>
 </body>
 </html>
